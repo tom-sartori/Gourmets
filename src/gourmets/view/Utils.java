@@ -30,4 +30,8 @@ public class Utils {
     public static String table (String element) {
         return "<table class=\"table table-striped\">\n" + element + "</table>\n";
     }
+
+    public static String caption (String element) {
+        return "<caption>\n" + element + "\n</caption>\n";
+    }
 }

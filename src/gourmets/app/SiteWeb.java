@@ -16,26 +16,26 @@ public class SiteWeb {
         Restaurant restaurantHeraultMontpellier = new Restaurant(
                 "Le Pastis",
                 new Adresse(3, "Rue Terral", 34000, "Montpellier"),
-                chefHerault,
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
         );
+        chefHerault.addRestaurantPossedeList(restaurantHeraultMontpellier);
 
         Restaurant restaurantHeraultSete = new Restaurant(
                 "La Marine",
                 new Adresse(29, "Quai Général Durand", 34200, "Sète"),
-                chefHerault,
                 "https://Marine.com/",
                 "04.00.00.00.00"
         );
+        chefHerault.addRestaurantPossedeList(restaurantHeraultSete);
 
         Restaurant restaurantParis = new Restaurant(
                 "La Paris",
                 new Adresse(35, "rue de Paris", 75000, "Paris"),
-                chefParis,
                 "https://restaurant-paris.com/",
                 "01.00.00.00.00"
         );
+        chefParis.addRestaurantPossedeList(restaurantParis);
 
         chefHerault.setRestaurantPrincipal(restaurantHeraultMontpellier);
 
@@ -83,6 +83,12 @@ public class SiteWeb {
         recetteAvecDeux.addIngredient(sucre, 5000.);
 
 
+        // Création de la page html avec la <table> des recettes.
         IngredientsView.toHtml("view.html", recetteAvecDeux);
+
+
+        // Test restaurantsChef(...).
+        System.out.println("Liste des restaurants du chef de l'Hérault : " + chefHerault.restaurantsChef(restaurantList));
+        System.out.println("Liste des restaurants du chef de Paris : " + chefParis.restaurantsChef(restaurantList));
     }
 }

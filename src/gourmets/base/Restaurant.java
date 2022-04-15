@@ -1,18 +1,18 @@
 package gourmets.base;
 
 
+import java.util.Objects;
+
 public class Restaurant {
 
     private String nom;
     private Adresse adresse;
-    private Chef chefProprietaire;
     private String lien;
     private String telephone;
 
-    public Restaurant(String nom, Adresse adresse, Chef chefProprietaire, String lien, String telephone) {
+    public Restaurant(String nom, Adresse adresse, String lien, String telephone) {
         this.nom = nom;
         this.adresse = adresse;
-        this.chefProprietaire = chefProprietaire;
         this.lien = lien;
         this.telephone = telephone;
     }
@@ -21,7 +21,6 @@ public class Restaurant {
         Restaurant restaurant = new Restaurant(
                 "Le Pastis",
                 new Adresse(3, "Rue Terral", 34000, "Montpellier"),
-                new Chef("Jean"),
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
                 );
@@ -37,7 +36,6 @@ public class Restaurant {
         return "Restaurant{" +
                 "nom='" + nom + '\'' +
                 ", adresse=" + adresse +
-                ", chefProprietaire=" + chefProprietaire +
                 ", lien='" + lien + '\'' +
                 ", telephone='" + telephone + '\'' +
                 '}';

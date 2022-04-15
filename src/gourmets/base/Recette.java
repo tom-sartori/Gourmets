@@ -81,4 +81,8 @@ public class Recette {
                 ", createur=" + createur +
                 '}';
     }
+
+    public String getNom() {
+        return nom;
+    }
 }

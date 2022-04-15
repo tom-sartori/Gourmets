@@ -2,6 +2,7 @@ package gourmets.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Chef {
 
@@ -31,7 +32,6 @@ public class Chef {
         Restaurant restaurant = new Restaurant(
                 "Le Pastis",
                 new Adresse(3, "Rue Terral", 34000, "Montpellier"),
-                new Chef("Jean"),
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
         );
@@ -52,7 +52,6 @@ public class Chef {
 
     public void setRestaurantPrincipal(Restaurant restaurantPrincipal) {
         this.restaurantPrincipal = restaurantPrincipal;
-        // addRestaurantPossedeList(restaurantPrincipal);   // ?
     }
 
     public void addRestaurantPossedeList(Restaurant restaurant) {
@@ -65,5 +64,28 @@ public class Chef {
 
     public List<Restaurant> getRestaurantPossedeList() {
         return restaurantPossedeList;
+    }
+
+    public List<Restaurant> restaurantsChef (List<Restaurant> restaurantList) {
+        List<Restaurant> restaurantDuChefList = new ArrayList<>();
+        for (Restaurant restaurant : restaurantList) {
+            if (this.restaurantPossedeList.contains(restaurant)) {
+                restaurantDuChefList.add(restaurant);
+            }
+        }
+        return restaurantDuChefList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chef chef = (Chef) o;
+        return Objects.equals(nom, chef.nom) && Objects.equals(restaurantPrincipal, chef.restaurantPrincipal) && Objects.equals(restaurantPossedeList, chef.restaurantPossedeList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom, restaurantPrincipal, restaurantPossedeList);
     }
 }

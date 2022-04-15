@@ -14,11 +14,12 @@ public class IngredientsView {
         html += getHtmlHeader();
         html += "<body>\n";
 
+        String caption = Utils.caption(recette.getNom());
         String thead = Utils.thead(new String[]{ "Nom", "Quantité" });
         String tbody = Utils.tbody(recette.toHtml());
 
 
-        html += Utils.table(thead + tbody);
+        html += Utils.table(caption + thead + tbody);
 
 
 
