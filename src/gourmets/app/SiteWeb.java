@@ -1,19 +1,86 @@
 package gourmets.app;
 
 import gourmets.base.*;
+import gourmets.exception.InvalidDepartement;
 import gourmets.view.IngredientsView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SiteWeb {
 
+    private static Chef chefHerault;
+    private static Chef chefParis;
+
+    private static Recette recetteAvecTout;
+    private static Recette recetteAvecDeux;
+
+    private static List<Restaurant> restaurantList;
+
     public static void main(String[] args) {
+        // initialisation.
+        init();
+
+
+        /**
+         * test toHtml().
+         */
+        testToHtml();
+
+
+        /**
+         * Test restaurantsChef(...).
+         */
+        testRestaurantsChef();
+
+
+        /**
+         * Test restaurantsDept(...).
+         */
+        testRestaurantDept();
+
+
+        /**
+         * Test approvis(...).
+         */
+        testApprovis();
+
+
+        /**
+         * test toDiv().
+         */
+        testToDiv();
+    }
+
+    private static int askUserDepartement () throws InvalidDepartement {
+        System.out.println("Entrez un département : ");
+        String s = "-1";
+
+        try{
+            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+            s = bufferRead.readLine();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        int departement = Integer.parseInt(s);
+
+        if (0 > departement || departement > 99) {
+            throw new InvalidDepartement();
+        }
+        return departement;
+    }
+
+    private static void init () {
         /**
          * Initialisation des données.
          */
-        Chef chefHerault = new Chef("Jean");
-        Chef chefParis = new Chef("Bernard");
+        chefHerault = new Chef("Jean");
+        chefParis = new Chef("Bernard");
 
         Restaurant restaurantHeraultMontpellier = new Restaurant(
                 "Le Pastis",
@@ -41,7 +108,7 @@ public class SiteWeb {
 
         chefHerault.setRestaurantPrincipal(restaurantHeraultMontpellier);
 
-        List<Restaurant> restaurantList = new ArrayList<>();
+        restaurantList = new ArrayList<>();
         restaurantList.add(restaurantHeraultMontpellier);
         restaurantList.add(restaurantHeraultSete);
         restaurantList.add(restaurantParis);
@@ -56,7 +123,7 @@ public class SiteWeb {
 
 
         // Création recettes.
-        Recette recetteAvecTout = new Recette(
+        recetteAvecTout = new Recette(
                 "Cake aux bananes",
                 "Dessert",
                 50,
@@ -72,7 +139,7 @@ public class SiteWeb {
         recetteAvecTout.addIngredient(farine, 500.);
         recetteAvecTout.addIngredient(lait, 0.390);
 
-        Recette recetteAvecDeux = new Recette(
+        recetteAvecDeux = new Recette(
                 "Banane caramélisée",
                 "Dessert",
                 10,
@@ -83,51 +150,85 @@ public class SiteWeb {
         );
         recetteAvecDeux.addIngredient(banane, 26.);
         recetteAvecDeux.addIngredient(sucre, 5000.);
+    }
 
-
-        /**
-         * test toHtml().
-         */
+    /**
+     * Test toHtml(...).
+     */
+    private static void testToHtml () {
         System.out.println("\n Test toHtml(...)");
         // Création de la page html avec la <table> des recettes.
         IngredientsView.toHtml("ingredient.view.html", recetteAvecDeux);
+        System.out.println("Ingrédients disponibles dans la vue ingredient.view.html. ");
+    }
 
-
-        /**
-         * Test restaurantsChef(...).
-         */
+    /**
+     * Test restaurantsChef(...).
+     */
+    private static void testRestaurantsChef () {
         System.out.println("\n Test restaurantsChef(...)");
         System.out.println("Liste des restaurants du chef de l'Hérault : " + chefHerault.restaurantsChef(restaurantList));
         System.out.println("Liste des restaurants du chef de Paris : " + chefParis.restaurantsChef(restaurantList));
+    }
 
-
-        /**
-         * Test restaurantsDept(...).
-         */
+    /**
+     * Test restaurantsDept(...).
+     */
+    private static void testRestaurantDept () {
         System.out.println("\n Test restaurantsDept(...)");
+        int departement = 34;
+        boolean isDepartementValid = false;
+        while (!isDepartementValid) {
+            try {
+                departement = askUserDepartement();
+                isDepartementValid = true;
+            } catch (InvalidDepartement e) {
+                System.out.println("Catching error. ");
+            }
+        }
+        System.out.println("Liste des restaurants du " + departement + " : " + Main.restaurantsDept(restaurantList, departement));
         System.out.println("Liste des restaurants du 34 : " + Main.restaurantsDept(restaurantList, 34));
         System.out.println("Liste des restaurants du 75 : " + Main.restaurantsDept(restaurantList, 75));
+    }
 
-
-        /**
-         * Test approvis(...).
-         */
+    /**
+     * Test approvis(...).
+     */
+    private static void testApprovis () {
         System.out.println("\n Test approvis(...)");
         System.out.println("Recette pour " + recetteAvecTout.getNbPersonne() + " couverts : ");
         System.out.println(recetteAvecTout.approvis(4));
         System.out.println();
         System.out.println("Même recette, mais pour 8 couverts : ");
         System.out.println(recetteAvecTout.approvis(8));
+    }
 
+    private static int askUsernbCouverts () {
+        System.out.println("Entrez un nombre de couverts : ");
+        String s = "-1";
 
-        /**
-         * test toDiv().
-         */
+        try{
+            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+            s = bufferRead.readLine();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        int nbCouverts = Integer.parseInt(s);
+        return nbCouverts;
+    }
+
+    /**
+     * test toDiv().
+     */
+    private static void testToDiv () {
         System.out.println("\n Test toDiv(...)");
-        int nbCouverts = 4;
+        int nbCouverts = askUsernbCouverts();
         System.out.println("Nb couverts : " + nbCouverts);
         System.out.println("Recette : " + recetteAvecTout);
         // Création de la page html avec la <table> des recettes.
         IngredientsView.toDiv("recette.view.html", recetteAvecTout, nbCouverts);
+        System.out.println("Recette disponible dans la vue recette.view.html. ");
     }
 }
