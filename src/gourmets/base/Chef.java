@@ -58,4 +58,12 @@ public class Chef {
     public void addRestaurantPossedeList(Restaurant restaurant) {
         this.restaurantPossedeList.add(restaurant);
     }
+
+    public Restaurant getRestaurantPrincipal() {
+        return restaurantPrincipal;
+    }
+
+    public List<Restaurant> getRestaurantPossedeList() {
+        return restaurantPossedeList;
+    }
 }

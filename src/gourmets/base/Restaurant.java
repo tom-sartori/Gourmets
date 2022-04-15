@@ -28,6 +28,10 @@ public class Restaurant {
         System.out.println(restaurant);
     }
 
+    public String calculPourNbCouverts (int nbCouverts) {
+        throw new RuntimeException("Not implemented. ");
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +

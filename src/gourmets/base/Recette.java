@@ -1,5 +1,8 @@
 package gourmets.base;
 
+import gourmets.view.Utils;
+import jdk.jshell.execution.Util;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +54,17 @@ public class Recette {
 
     public void addIngredient (Ingredient ingredient, Double quantite) {
         ingredientDoubleMap.put(ingredient, quantite);
+    }
+
+    public String toHtml () {
+        String sh = "";
+        for (Map.Entry<Ingredient, Double> element : ingredientDoubleMap.entrySet()) {
+            sh += Utils.tr(
+                    Utils.td(element.getKey().getNom()) +
+                            Utils.td(element.getValue() + " " + element.getKey().getUnite().toString())
+            );
+        }
+        return sh;
     }
 
     @Override

@@ -20,6 +20,14 @@ public class Ingredient {
         System.out.println(ingredient);
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public Unite getUnite() {
+        return unite;
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +

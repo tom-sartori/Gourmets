@@ -8,9 +8,9 @@ public enum Unite {
     @Override
     public String toString() {
         return switch (this) {
-            case GRAMME -> "gramme";
-            case LITRE -> "litre";
-            case UNITE -> "unitée";
+            case GRAMME -> "grammes";
+            case LITRE -> "litres";
+            case UNITE -> "unitées";
         };
     }
 }
