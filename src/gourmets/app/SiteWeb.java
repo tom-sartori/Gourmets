@@ -88,6 +88,7 @@ public class SiteWeb {
         /**
          * test toHtml().
          */
+        System.out.println("\n Test toHtml(...)");
         // Création de la page html avec la <table> des recettes.
         IngredientsView.toHtml("view.html", recetteAvecDeux);
 
@@ -95,6 +96,7 @@ public class SiteWeb {
         /**
          * Test restaurantsChef(...).
          */
+        System.out.println("\n Test restaurantsChef(...)");
         System.out.println("Liste des restaurants du chef de l'Hérault : " + chefHerault.restaurantsChef(restaurantList));
         System.out.println("Liste des restaurants du chef de Paris : " + chefParis.restaurantsChef(restaurantList));
 
@@ -102,7 +104,20 @@ public class SiteWeb {
         /**
          * Test restaurantsDept(...).
          */
+        System.out.println("\n Test restaurantsDept(...)");
         System.out.println("Liste des restaurants du 34 : " + Main.restaurantsDept(restaurantList, 34));
         System.out.println("Liste des restaurants du 75 : " + Main.restaurantsDept(restaurantList, 75));
+
+
+        /**
+         * Test approvis(...).
+         */
+        System.out.println("\n Test approvis(...)");
+        System.out.println("Recette pour " + recetteAvecTout.getNbPersonne() + " couverts : ");
+        System.out.println(recetteAvecTout.approvis(4));
+        System.out.println();
+        System.out.println("Même recette, mais pour 8 couverts : ");
+        System.out.println(recetteAvecTout.approvis(8));
+
     }
 }

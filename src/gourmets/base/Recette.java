@@ -56,6 +56,14 @@ public class Recette {
         ingredientDoubleMap.put(ingredient, quantite);
     }
 
+    public Map<Ingredient, Double> approvis (int nbCouverts) {
+        Map<Ingredient, Double> ingredientMap = new HashMap<>();
+        for (Map.Entry<Ingredient, Double> element : this.ingredientDoubleMap.entrySet()) {
+            ingredientMap.put(element.getKey(), (nbCouverts * element.getValue()) / this.nbPersonne);
+        }
+        return ingredientMap;
+    }
+
     public String toHtml () {
         String sh = "";
         for (Map.Entry<Ingredient, Double> element : ingredientDoubleMap.entrySet()) {
@@ -84,5 +92,9 @@ public class Recette {
 
     public String getNom() {
         return nom;
+    }
+
+    public int getNbPersonne() {
+        return nbPersonne;
     }
 }
