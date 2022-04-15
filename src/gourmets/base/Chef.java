@@ -88,4 +88,8 @@ public class Chef {
     public int hashCode() {
         return Objects.hash(nom, restaurantPrincipal, restaurantPossedeList);
     }
+
+    public String getNom() {
+        return nom;
+    }
 }

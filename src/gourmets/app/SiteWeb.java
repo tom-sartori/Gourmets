@@ -70,7 +70,7 @@ public class SiteWeb {
         recetteAvecTout.addIngredient(banane, 4.);
         recetteAvecTout.addIngredient(sucre, 250.5);
         recetteAvecTout.addIngredient(farine, 500.);
-        recetteAvecTout.addIngredient(lait, 390.5);
+        recetteAvecTout.addIngredient(lait, 0.390);
 
         Recette recetteAvecDeux = new Recette(
                 "Banane caramélisée",
@@ -90,7 +90,7 @@ public class SiteWeb {
          */
         System.out.println("\n Test toHtml(...)");
         // Création de la page html avec la <table> des recettes.
-        IngredientsView.toHtml("view.html", recetteAvecDeux);
+        IngredientsView.toHtml("ingredient.view.html", recetteAvecDeux);
 
 
         /**
@@ -119,5 +119,15 @@ public class SiteWeb {
         System.out.println("Même recette, mais pour 8 couverts : ");
         System.out.println(recetteAvecTout.approvis(8));
 
+
+        /**
+         * test toDiv().
+         */
+        System.out.println("\n Test toDiv(...)");
+        int nbCouverts = 4;
+        System.out.println("Nb couverts : " + nbCouverts);
+        System.out.println("Recette : " + recetteAvecTout);
+        // Création de la page html avec la <table> des recettes.
+        IngredientsView.toDiv("recette.view.html", recetteAvecTout, nbCouverts);
     }
 }

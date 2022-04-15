@@ -2,7 +2,6 @@ package gourmets.view;
 
 import gourmets.base.Recette;
 
-import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,25 +10,43 @@ public class IngredientsView {
 
     public static void toHtml (String filePath, Recette recette) {
         String html = "";
-        html += getHtmlHeader();
-        html += "<body>\n";
+        html += Tag.head();
 
-        String caption = Utils.caption(recette.getNom());
-        String thead = Utils.thead(new String[]{ "Nom", "Quantité" });
-        String tbody = Utils.tbody(recette.toHtml());
+        String tableIngredient = recette.ingredientToHtml();
 
+        String body = Tag.body(tableIngredient);
+        html += body;
 
-        html += Utils.table(caption + thead + tbody);
+        html += Tag.getHtmlEnd();
 
-
-
-
-        html += getHtmlEnd();
+        createHtmlFile(filePath, html);
+    }
 
 
+    /**
+     * Réponse à la question 8.
+     * toDiv() est divisée en deux parties.
+     * La première partie est ici. Elle permet de créer le squelette html et appelle une fonction contenue dans Recette,
+     * pour récupérer le div avec le contenu de la recette.
+     * La méthode n'est pas entièrement dans la classe Recette, car le squelette html ne dépend pas de son domaine de responsabilité.
+     */
+    public static void toDiv (String filePath, Recette recette, int nbCouvert) {
+        String html = "";
+        html += Tag.head();
+
+        String divRecette = recette.toDiv(nbCouvert);
+        String body = Tag.body(divRecette);
+
+        html += body;
+        html += Tag.getHtmlEnd();
+
+        createHtmlFile(filePath, html);
+    }
+
+    private static void createHtmlFile (String filePath, String innerHtml) {
         try {
             FileWriter myWriter = new FileWriter(filePath);
-            myWriter.write(html);
+            myWriter.write(innerHtml);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         }
@@ -37,24 +54,5 @@ public class IngredientsView {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-    }
-
-    private static String getHtmlHeader () {
-        return
-                "<!DOCTYPE html>\n" +
-                        "<html lang=\"fr\">\n" +
-                        "\n" +
-                        "<head>\n" +
-                        "    <title></title>\n" +
-                        "    <meta charset=\"UTF-8\">\n" +
-                        "    <meta name=\"author\" content=\"Tom Sartori\">\n" +
-                        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                        "\n" +
-                        "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">\n" +
-                        "</head>\n";
-    }
-
-    private static String getHtmlEnd () {
-        return "</body>\n</html>";
     }
 }

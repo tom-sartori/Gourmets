@@ -1,7 +1,6 @@
 package gourmets.base;
 
-import gourmets.view.Utils;
-import jdk.jshell.execution.Util;
+import gourmets.view.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,15 +63,35 @@ public class Recette {
         return ingredientMap;
     }
 
-    public String toHtml () {
-        String sh = "";
-        for (Map.Entry<Ingredient, Double> element : ingredientDoubleMap.entrySet()) {
-            sh += Utils.tr(
-                    Utils.td(element.getKey().getNom()) +
-                            Utils.td(element.getValue() + " " + element.getKey().getUnite().toString())
+    public String ingredientToHtml () {
+        return ingredientMapToHtml(this.ingredientDoubleMap);
+    }
+
+    // Return a html table.
+    private String ingredientMapToHtml(Map<Ingredient, Double> ingredientMap) {
+        String tbody = "";
+        for (Map.Entry<Ingredient, Double> element : ingredientMap.entrySet()) {
+            tbody += Tag.tr(
+                    Tag.td(element.getKey().getNom()) +
+                            Tag.td(element.getValue() + " " + element.getKey().getUnite().toString())
             );
         }
-        return sh;
+
+        String caption = Tag.caption(nom);
+        String thead = Tag.thead(new String[]{ "Nom", "Quantité" });
+        tbody = Tag.tbody(tbody);
+
+        return Tag.table(caption + thead + tbody);
+    }
+
+    // Return a html div.
+    public String toDiv(int nbCouvert) {
+        String h1Nom = Tag.h1(nom);
+        String h2Auteur = Tag.h2(createur.getNom());
+        String pNbPersonne = Tag.p("Cette recette est faite pour " + nbCouvert + " personnes. ");
+        String tableIngredient = ingredientMapToHtml(approvis(nbCouvert));
+
+        return Tag.div(h1Nom + h2Auteur + pNbPersonne + tableIngredient);
     }
 
     @Override
