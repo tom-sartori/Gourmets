@@ -20,7 +20,7 @@ public class Restaurant {
     public static void main(String[] args) {
         Restaurant restaurant = new Restaurant(
                 "Le Pastis",
-                new Adresse(3, "Rue Terral", 34000, "Montpellier"),
+                new Adresse(3, "Rue Terral", "34000", "Montpellier"),
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
                 );
@@ -39,5 +39,9 @@ public class Restaurant {
                 ", lien='" + lien + '\'' +
                 ", telephone='" + telephone + '\'' +
                 '}';
+    }
+
+    public Adresse getAdresse() {
+        return adresse;
     }
 }

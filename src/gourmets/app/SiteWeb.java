@@ -9,13 +9,15 @@ import java.util.List;
 public class SiteWeb {
 
     public static void main(String[] args) {
-
+        /**
+         * Initialisation des données.
+         */
         Chef chefHerault = new Chef("Jean");
         Chef chefParis = new Chef("Bernard");
 
         Restaurant restaurantHeraultMontpellier = new Restaurant(
                 "Le Pastis",
-                new Adresse(3, "Rue Terral", 34000, "Montpellier"),
+                new Adresse(3, "Rue Terral", "34000", "Montpellier"),
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
         );
@@ -23,7 +25,7 @@ public class SiteWeb {
 
         Restaurant restaurantHeraultSete = new Restaurant(
                 "La Marine",
-                new Adresse(29, "Quai Général Durand", 34200, "Sète"),
+                new Adresse(29, "Quai Général Durand", "34200", "Sète"),
                 "https://Marine.com/",
                 "04.00.00.00.00"
         );
@@ -31,7 +33,7 @@ public class SiteWeb {
 
         Restaurant restaurantParis = new Restaurant(
                 "La Paris",
-                new Adresse(35, "rue de Paris", 75000, "Paris"),
+                new Adresse(35, "rue de Paris", "75000", "Paris"),
                 "https://restaurant-paris.com/",
                 "01.00.00.00.00"
         );
@@ -83,12 +85,24 @@ public class SiteWeb {
         recetteAvecDeux.addIngredient(sucre, 5000.);
 
 
+        /**
+         * test toHtml().
+         */
         // Création de la page html avec la <table> des recettes.
         IngredientsView.toHtml("view.html", recetteAvecDeux);
 
 
-        // Test restaurantsChef(...).
+        /**
+         * Test restaurantsChef(...).
+         */
         System.out.println("Liste des restaurants du chef de l'Hérault : " + chefHerault.restaurantsChef(restaurantList));
         System.out.println("Liste des restaurants du chef de Paris : " + chefParis.restaurantsChef(restaurantList));
+
+
+        /**
+         * Test restaurantsDept(...).
+         */
+        System.out.println("Liste des restaurants du 34 : " + Main.restaurantsDept(restaurantList, 34));
+        System.out.println("Liste des restaurants du 75 : " + Main.restaurantsDept(restaurantList, 75));
     }
 }

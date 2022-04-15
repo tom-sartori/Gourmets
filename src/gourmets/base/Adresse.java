@@ -4,10 +4,10 @@ public class Adresse {
 
     private int num;
     private String voie;
-    private int codePostal;
+    private String codePostal;
     private String ville;
 
-    public Adresse(int num, String voie, int codePostal, String ville) {
+    public Adresse(int num, String voie, String codePostal, String ville) {
         this.num = num;
         this.voie = voie;
         this.codePostal = codePostal;
@@ -15,8 +15,12 @@ public class Adresse {
     }
 
     public static void main(String[] args) {
-        Adresse adresse = new Adresse(20, "Rue des Bois", 34000, "Montpellier");
+        Adresse adresse = new Adresse(20, "Rue des Bois", "34000", "Montpellier");
         System.out.println(adresse);
+    }
+
+    public boolean isSameDepartment (Integer department) {
+        return codePostal.substring(0, 2).equals(department.toString());
     }
 
     @Override

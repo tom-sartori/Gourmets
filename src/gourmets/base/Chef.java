@@ -31,7 +31,7 @@ public class Chef {
         Chef chef = new Chef("Jean");
         Restaurant restaurant = new Restaurant(
                 "Le Pastis",
-                new Adresse(3, "Rue Terral", 34000, "Montpellier"),
+                new Adresse(3, "Rue Terral", "34000", "Montpellier"),
                 "https://pastis-restaurant.com/",
                 "04.00.00.00.00"
         );
