@@ -14,4 +14,19 @@ public class Ingredient {
         this.unite = unite;
         this.valeurNutritionnelle = valeurNutritionnelle;
     }
+
+    public static void main(String[] args) {
+        Ingredient ingredient = new Ingredient("Banane", "Fruit", Unite.UNITE, new ValeurNutritionnelle(90, 22.85, 2.2, 0.33));
+        System.out.println(ingredient);
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "nom='" + nom + '\'' +
+                ", nature='" + nature + '\'' +
+                ", unite=" + unite +
+                ", valeurNutritionnelle=" + valeurNutritionnelle +
+                '}';
+    }
 }

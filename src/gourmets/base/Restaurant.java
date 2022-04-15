@@ -16,4 +16,26 @@ public class Restaurant {
         this.lien = lien;
         this.telephone = telephone;
     }
+
+    public static void main(String[] args) {
+        Restaurant restaurant = new Restaurant(
+                "Le Pastis",
+                new Adresse(3, "Rue Terral", 34000, "Montpellier"),
+                new Chef("Jean"),
+                "https://pastis-restaurant.com/",
+                "04.00.00.00.00"
+                );
+        System.out.println(restaurant);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "nom='" + nom + '\'' +
+                ", adresse=" + adresse +
+                ", chefProprietaire=" + chefProprietaire +
+                ", lien='" + lien + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }

@@ -1,11 +1,13 @@
 package gourmets.base;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Recette {
 
     private String nom;
     private int code;
+    private static int currentCode = 0; // todo : singleton.
     private String typePlat;
     private double tempsCuisson;
     private String typeCuisson;
@@ -16,15 +18,53 @@ public class Recette {
     private Chef createur;
 
 
-    public Recette(String nom, int code, String typePlat, double tempsCuisson, String typeCuisson, String explication, int nbPersonne, Map<Ingredient, Double> ingredientDoubleMap, Chef createur) {
+    public Recette(String nom, String typePlat, double tempsCuisson, String typeCuisson, String explication, int nbPersonne, Chef createur) {
         this.nom = nom;
-        this.code = code;
+        this.code = currentCode;
+        currentCode++;
         this.typePlat = typePlat;
         this.tempsCuisson = tempsCuisson;
         this.typeCuisson = typeCuisson;
         this.explication = explication;
         this.nbPersonne = nbPersonne;
-        this.ingredientDoubleMap = ingredientDoubleMap;
+        this.ingredientDoubleMap = new HashMap<>();
         this.createur = createur;
+    }
+
+    public static void main(String[] args) {
+        Recette recette = new Recette(
+                "Cake aux bananes à l’huile d’olive et miel",
+                "Dessert",
+                50,
+                "Four",
+                "Préchauffer le four à 180/200°C. Dans un grand bol, écraser\n" +
+                        "      très grossièrement les 4 bananes très mûres à la fourchette.",
+                4,
+                new Chef("Jean")
+        );
+
+        Ingredient banane = new Ingredient("Banane", "Fruit", Unite.UNITE, new ValeurNutritionnelle(90, 22.85, 2.2, 0.33));
+        recette.addIngredient(banane, 4.);
+
+        System.out.println(recette);
+    }
+
+    public void addIngredient (Ingredient ingredient, Double quantite) {
+        ingredientDoubleMap.put(ingredient, quantite);
+    }
+
+    @Override
+    public String toString() {
+        return "Recette{" +
+                "nom='" + nom + '\'' +
+                ", code=" + code +
+                ", typePlat='" + typePlat + '\'' +
+                ", tempsCuisson=" + tempsCuisson + " minutes" +
+                ", typeCuisson='" + typeCuisson + '\'' +
+                ", explication='" + explication + '\'' +
+                ", nbPersonne=" + nbPersonne +
+                ", ingredientDoubleMap=" + ingredientDoubleMap +
+                ", createur=" + createur +
+                '}';
     }
 }
